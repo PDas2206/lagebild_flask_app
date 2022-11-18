@@ -37,7 +37,7 @@ def FunctionJob1End():
 @app.route('/FunctionRobot')
 def FunctionRobot():
     #print("You are using a Robot")
-    #return "Nothing"
+    return "Nothing"
 
 
 
