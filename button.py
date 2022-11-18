@@ -15,11 +15,11 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
-
+"""
 @app.route('/FunctionJob1Start')
 def FunctionJob1Start():
     
-    print('In SomeFunction')
+    #print('In SomeFunction')
     #with open("data_file.txt", "w", encoding="utf-8") as f_in:
         #now = datetime.now()
         #print("Job 1 starts at:", now, file=f_in)
@@ -32,13 +32,15 @@ def FunctionJob1End():
     #with open("data_file.txt", "a", encoding="utf-8") as f_in:
         #now = datetime.now()
         #print("Job 1 ends at:", now, file=f_in)
+    return "Nothing"
     
 
 @app.route('/FunctionRobot')
 def FunctionRobot():
     #print("You are using a Robot")
     return "Nothing"
-
+    
+"""
 
 
 if __name__ == '__main__':
