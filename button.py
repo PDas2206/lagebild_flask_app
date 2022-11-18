@@ -20,24 +20,24 @@ def index():
 def FunctionJob1Start():
     
     print('In SomeFunction')
-    with open("data_file.txt", "w", encoding="utf-8") as f_in:
-        now = datetime.now()
-        print("Job 1 starts at:", now, file=f_in)
+    #with open("data_file.txt", "w", encoding="utf-8") as f_in:
+        #now = datetime.now()
+        #print("Job 1 starts at:", now, file=f_in)
             
         
     return "Nothing"
 
 @app.route('/FunctionJob1End')
 def FunctionJob1End():
-    with open("data_file.txt", "a", encoding="utf-8") as f_in:
-        now = datetime.now()
-        print("Job 1 ends at:", now, file=f_in)
+    #with open("data_file.txt", "a", encoding="utf-8") as f_in:
+        #now = datetime.now()
+        #print("Job 1 ends at:", now, file=f_in)
     
 
 @app.route('/FunctionRobot')
 def FunctionRobot():
-    print("You are using a Robot")
-    return "Nothing"
+    #print("You are using a Robot")
+    #return "Nothing"
 
 
 
