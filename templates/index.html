@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+
+	
+    <title>Lagebild simulation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <h1>Simulating the Lagebild</h1>  
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+    <script type=text/javascript> $(function() { $("#job_button_1_start").click(function (event) { $.getJSON('/FunctionJob1Start', { },
+    function(data) { }); return false; }); }); </script> 
+    <script type=text/javascript> $(function() { $("#job_button_1_end").click(function (event) { $.getJSON('/FunctionJob1End', { },
+    function(data) { }); return false; }); }); </script> 
+    <script type=text/javascript> $(function() { $("#robot_button_1").click(function (event) { $.getJSON('/FunctionRobot', { },
+    function(data) { }); return false; }); }); </script> 
+</head>
+
+<body>        
+        <input type = "button" onclick="doDisable_job_1()" id = "job_button_1_start" value = "Start Job 1" />
+
+        <script>
+            function doDisable_job_1(){
+                document.getElementById("job_button_2_start").disabled = true;
+                document.getElementById("job_button_2_end").disabled = true;
+                document.getElementById("robot_button_2").disabled = true;
+            }
+        </script>
+
+        <input type = "button" onclick="doEnable_job_1()" id = "job_button_1_end" value = "End Job 1" />
+        <script>
+            function doEnable_job_1(){
+                document.getElementById("job_button_2_start").disabled = false;
+                document.getElementById("job_button_2_end").disabled = false;
+                document.getElementById("robot_button_2").disabled = false;
+            }
+        </script>
+        
+</body> 
+<br>
+<br>  
+<body>        
+        <input type = "button" onclick="doDisable_job_2()" id = "job_button_2_start" value = "Start Job 2" />
+        <script>
+            function doDisable_job_2(){
+                
+                document.getElementById("robot_button_1").disabled = true;
+                document.getElementById("robot_button_3").disabled = true;
+            }
+        </script>
+        <input type = "button" onclick="doEnable_job_2()" id = "job_button_2_end" value = "End Job 2" />
+        <script>
+            function doEnable_job_2(){
+                
+                document.getElementById("robot_button_1").disabled = false;
+                document.getElementById("robot_button_3").disabled = false;
+            }
+        </script>
+
+        <!--<button type="button" id="test">Click Me!</button>
+
+		<script>document.getElementById("test").disabled = true;
+		</script> -->
+        
+</body>  
+<br>
+<br> 
+
+<body>        
+        <input type = "button" id = "robot_button_1" value = "Robot 1" />
+        <input type = "button" id = "robot_button_2" value = "Robot 2" />
+        <input type = "button" id = "robot_button_3" value = "Robot 3" />
+</body>    
+
+</html>
