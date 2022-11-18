@@ -5,8 +5,8 @@ Created on Tue Sep 20 15:52:21 2022
 @author: PRIYANKA
 """
 
-from flask import Flask, jsonify, render_template, request
-from datetime import datetime
+from flask import Flask, render_template, request
+#from datetime import datetime
 
 
 app = Flask(__name__)
