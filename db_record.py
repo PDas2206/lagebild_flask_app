@@ -11,7 +11,7 @@ import sqlite3
 connection = sqlite3.connect("db_record.db")
 cursor = connection.cursor()
 
-#cursor.execute("create table record (job TEXT, timestamp INTEGER)")
+cursor.execute("create table record (job TEXT, timestamp INTEGER)")
 #cursor.execute("INSERT INTO record VALUES (?,?)", ("Job1Start", 123))
 """
 for i in range(len(record)):
