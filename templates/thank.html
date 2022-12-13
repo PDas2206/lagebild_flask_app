@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<title>Lagebild simulation</title>
+</head>
+<body>
+	<h2>Hurray! You finished the experiment!</h2>
+
+	<br>
+	<br>
+	
+	<div>
+		<p><font size="+2">Thanks for participating <FONT COLOR="#ffc93c"><b><span id="user-name"></span></b></FONT>!</font></p>
+		
+		<script type="text/javascript">
+			const name_user=localStorage.getItem('user-name');
+			console.log(name_user);
+			document.getElementById("user-name").textContent=name_user;
+			localStorage.removeItem('user-name');
+
+		</script>
+	</div>
+	
+</body>
+
+
+<body>
+<!--
+<img src="https://media4.giphy.com/media/h5XG7vdp3hq1OolYD2/giphy.gif?cid=790b7611f53ea54a80a7f4b27b1005e8a8ec7f9234796ae7&rid=giphy.gif&ct=s"/>
+-->
+
+<img src="https://media4.giphy.com/media/h2HgqIiVvi2C17LLjT/giphy.gif?cid=790b7611ede2916b466f7f05385eb80690dfd7a704c2ccf1&rid=giphy.gif&ct=s"/>
+</body>
+</html>
