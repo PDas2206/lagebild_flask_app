@@ -8,6 +8,11 @@ h1 {
     color: #142d4c;
     font-family: Lucida Sans;
 }
+h2 {
+
+    color: #142d4c;
+    font-family: Lucida Sans;
+}
 p {
     color: white;
     font-family: Shanti;
@@ -46,4 +51,15 @@ input:focus {
 
 #greet:hover {
     background-color: MediumVioletRed;
+}
+
+
+#robot_button_1, #robot_button_2, #robot_button_3 {
+    
+    cursor: not-allowed;
+}
+
+#robot_button_1, #robot_button_2, #robot_button_3:focus {
+    outline: none;
+    border: none;
 }
