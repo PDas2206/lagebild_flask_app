@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<title>
+		Lagebild simulation
+	</title>
+	<h1>Welcome to the experiment!</h1>
+</head>
+<body>
+<p>Thank you for participating, it means a lot! Please enter your name to get started. You can enter an alias if you want, your name would be used just as an identifier for your data . Your name will not be stored, processed or transferred for any other purpose. The Robot buttons show you which of the robots are being used when a job is being run.</p>
+</body>
+<br>
+<body><p>Enter your name and press the submit button, only then will the START button be activated. Click it to start the experiment.</p>
+</body>
+<body>
+<br>
+
+<div class="name_submit">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    
+    <form id="formABC" action='/storeName' method="POST">
+        <input type="text" onkeyup="success()" id="text_box" placeholder="Enter your Name..."></input>
+        <input type="submit" id="btnSubmit" disabled value="Submit"></input> 
+        <!--<button type="submit" id="btnSubmit" disabled>Submit</button> -->
+    </form>
+
+
+
+    <script type="text/javascript">
+    // making sure the text box has some data when the SUBMIT button will be clicked
+    function success() {
+        if(document.getElementById("text_box").value==="") { 
+            document.getElementById('btnSubmit').disabled = true; 
+        } else { 
+            document.getElementById('btnSubmit').disabled = false;
+        }
+    }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+        $("#formABC").submit(function (e) {
+
+            //stop submitting the form to see the disabled button effect
+            e.preventDefault();
+
+            //disable the submit button
+            $("#btnSubmit").attr("disabled", true);
+
+            //disable a normal button
+            $("#text_box").attr("disabled", true);
+
+            //enable the start button
+            $("#start_1").attr("disabled", false);
+
+            return true;
+
+        });
+    });
+    </script>
+
+</div>
+
+
+
+<!--
+    <form action="greet" method="post">
+        {% for message in get_flashed_messages() %}
+             <p>{{ message }}</p>
+         {% endfor %}
+        <br>
+        <input type="text" name="name_input">
+        <br>
+        <input type="submit" onclick="doEnable_START()" value="SUBMIT" id="greet">
+    </form>
+    
+    <script type="application/javascript">
+            function doEnable_START(){
+            	c=1;
+                
+                document.getElementById('start_1').disabled=false;
+                
+
+            }
+        </script>
+
+-->
+
+<script type="text/javascript">
+    const form=document.getElementById("formABC");
+    const name=document.getElementById("text_box");
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const nameValue=name.value;
+        localStorage.setItem('user-name', nameValue);
+        console.log(localStorage);
+
+        //window.location.href="thank.html";
+    })
+</script>
+
+</body>
+<body><p>To start the experiment click the START button. The button will only work once you have entered your name.</p></body>
+<br>
+<body>
+
+    <a href="{{ url_for('index') }}">
+        <input type = "button" id = "start_1" value = "START" />
+        
+    </a>
+
+
+
+    <script type="text/javascript">
+        // disabling the START button by default
+        document.getElementById('start_1').disabled=true;
+    
+    </script>
+</body>
+
+
+
+</html>
