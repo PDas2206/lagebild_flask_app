@@ -4,15 +4,458 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 	<title>
-		Lagebild simulation
+		Fire and Rescuer
 	</title>
 	<h1>Welcome to the experiment!</h1>
 </head>
 <body>
-<p>Thank you for participating, it means a lot! Please enter your name to get started. You can enter an alias if you want, your name would be used just as an identifier for your data . Your name will not be stored, processed or transferred for any other purpose. The Robot buttons show you which of the robots are being used when a job is being run.</p>
+<p>I am Priyanka Das and I am currently studying for a masters degree in Language Science and Technology at Saarland University. This experiment is a part of my masters thesis, so thank you to everyone who took time out to participate.</p>
+<p> <!--In this experiment, we are simulating a software that the firefighters in Dortmund use while performing rescue operations. This is a much smaller and more fun version of the original app.-->
+The experiment is named <b><i>"Fire and Rescuer"</i></b> wherein you are playing the role of a "Firefighter" and your enemy is the "Fire". Likewise you will have a set of tasks, which you can execute according to your own judgement. The following is a concise description of it:</p>
+<div class="bullet_points">
+    <ul>
+        <!--
+        <li>In the app you are playing the role of a "Firefighter". Your enemy is the "Fire". </li>
+        <li>Likewise you will have a set of tasks, which you can execute according to your own judgement. </li> -->
+        <li>The experiment runs under a fixed time frame. </li>
+        <li>Your task is to complete as many jobs as possible within that time. </li>
+        <li>You can run multiple jobs in parallel if the app allows you to, so feel free to do so.</li>
+        <li>Jobs that have mutual dependencies have been disabled when and where they clash. 
+        <br>
+        For example if Job 1 and Job 2 both use the same resource (Robots), then you can run only one at a time.</li> 
+        <li>Jobs that do not share any resource dependability can be executed simultaneously. 
+        <br>
+        You do not need to worry about entering into a deadlock, the app prevents it by disabling tasks that can lead you to it. </li>
+        <li>
+        Feel free to interrupt/stop jobs as many times as you want.
+        </li>
+        <li>It is desirable that you run the job named "critical operation" before you end your experiment.</li>
+    </ul> 
+</div>
+<p>
+In short your task is: look at the Job dependency, and try to run as many jobs in parallel as you can so that you can complete as many jobs as possible (preferrably executing the job named "critical operation") before the stipulated time finishes. </p>
+
+<div><img id="extinguisher_image" src="https://www.animatedimages.org/data/media/64/animated-fire-brigade-and-fire-department-image-0057.gif" alt="Fire Extinguisher">
+</div>
+<p>
+To make you familiar with the experiment in the next page, the following is a dummy miniature version of what you will find there.</p>
+<div class="bullet_points">
+    <ul>
+        <li>
+            Every Job has 2 associated buttons with it, one to start it (the one on your right) and another to stop/interrupt it (the one on your left).
+        </li>
+        <li>
+            You click on the "start" buttons to run a particular task; likewise you click the respective "stop" button to stop/interrupt it. 
+        </li>
+        <li>
+            Every job has a predefined execution (burst) time (can be seen from its progress bar), hence it will take a minimum of that burst time to finish it. 
+        </li>
+        <li>
+            There is no particular order as to which job must be executed first, hence feel free to play around.
+        </li>
+        <li>
+            You do not have to worry about the Robot buttons; they are there to give a visual cue as to which Robots are being used by which job. 
+            <br>
+            Additionally we have mentioned the jobs that use those Robots under them, so that you can decide which jobs to run based on that. 
+        </li>
+        <li>
+            The progress bar tells you how much burst time of a particular job is left.
+        </li>
+        <li>
+            You cannot finish the experiment (and click the "Finish" button) unless all the jobs have been completed or the experiment time frame finishes. 
+            <br>
+            This can be checked by observing the progress bars; if the progress bar for each job turns white (or time left for each job is 0s) then all jobs have been finished.
+        </li>
+        <li>
+            The "Finish" button is enabled only when the above condition is met.
+        </li>
+        
+        
+    </ul>
+</div>
+    <p>Press the "Start Sample Experiment" button to start this sample experiment (and its timer). If you want to try out the sample multiple times then just reload/refresh this page. Please DO NOT refresh or reload the main experiment page once you enter it.</p>
+
+<!-- ***************************************************************************** -->      
+<!-- *************   SAMPLE **************  SAMPLE ******************************* -->
+<!-- ***************************************************************************** --> 
+
+<input type = "button" onclick="start_wholeExperiment_sample()" id = "wholeExperiment_start_sample" value = "Start Sample Experiment" />
+
+<div id="sample_experiment">
+
+<!-- GLOBAL VARIABLES -->
+    <script type="text/javascript">
+            var all_timer_0_sample=0;
+            var total_num_jobs_sample=3;
+            var flag_wholeExperiment_sample=0
+            // job1 global timer variables
+            var timerElement_job_sample1;
+            var timerCounter_job_sample1;
+            var interval_job_sample1;
+            var job_sample1_status=0;
+            
+            // job2 global timer variables
+            var timerElement_job_sample2;
+            var timerCounter_job_sample2;
+            var interval_job_sample2;
+            var job_sample2_status=0;
+
+            // job3 global timer variables
+            var timerElement_job_sample3;
+            var timerCounter_job_sample3;
+            var interval_job_sample3;
+            var job_sample3_status=0;
+    </script>
+
+    <!-- EXPERIMENT TIMER -->
+
+    <div id="wholeExperiment_timer">
+        <p>Experiment Timer: Try to finish as many jobs as possible until the bar is 0!</p>
+        <br>
+
+        <span class="timer" id="timer_wholeExperiment_sample" > 10s </span>
+                <progress
+                max="10"
+                value="10"
+                class="progress progress--set"
+                id ="progressBar_wholeExperiment_sample"
+                ></progress>
+    </div> 
+        <script type="text/javascript">
+        // timer
+        function start_wholeExperiment_sample(){
+            timerElement_wholeExperiment_sample=document.getElementById("timer_wholeExperiment_sample");
+            const progressBar=document.getElementById("progressBar_wholeExperiment_sample");
+            timerCounter_wholeExperiment_sample=progressBar_wholeExperiment_sample.max;
+            interval_wholeExperiment_sample=setInterval(function(){
+            if (timerCounter_wholeExperiment_sample<=1){
+                clearInterval(interval_wholeExperiment_sample);
+                // Disable all job buttons
+                document.getElementById("job_button_sample1_start").disabled = true;
+                document.getElementById("job_button_sample1_end").disabled = true;
+                document.getElementById("job_button_sample2_start").disabled = true;
+                document.getElementById("job_button_sample2_end").disabled = true;
+                document.getElementById("job_button_sample3_start").disabled = true;
+                document.getElementById("job_button_sample3_end").disabled = true;
+                                  
+
+                // recording the status of job being finished
+                all_timer_0_sample=total_num_jobs_sample;
+                console.log(all_timer_0_sample);
+                check_timer_status_sample();
+
+                //setting the flag so that no other job can be started
+                flag_wholeExperiment_sample=1
+
+                //notifying the user with an alert message
+                alert("Time out!!! You can now press the Finish button to end the experiment")
+
+                //not letting the progress bar continue even after Experiment timeout
+
+                clearInterval(interval_job_sample1);
+                interval_job_sample1 = undefined;
+                progressBar_job_sample1.max=progressBar_job_sample1.value;
+
+                clearInterval(interval_job_sample2);
+                interval_job_sample2 = undefined;
+                progressBar_job_sample2.max=progressBar_job_sample2.value;
+
+                clearInterval(interval_job_sample3);
+                interval_job_sample3 = undefined;
+                progressBar_job_sample3.max=progressBar_job_sample3.value;
+
+                    
+
+            }
+            timerCounter_wholeExperiment_sample=timerCounter_wholeExperiment_sample-1;
+            timerElement_wholeExperiment_sample.innerText=timerCounter_wholeExperiment_sample+"s";
+            progressBar_wholeExperiment_sample.value=timerCounter_wholeExperiment_sample;
+
+        },1000);
+    }
+    </script>      
+
+    <br>
+    <br>
+        <!-- The ROBOTS -->
+        <input type = "button" id = "robot_button_sample1" value = "Robot 1" />
+        <div id="job_dependency"><p>Used by: Job 2</p></div>
+        <br>
+        <br>
+        <input type = "button" id = "robot_button_sample2" value = "Robot 2" />
+        <div id="job_dependency"><p>Used by: Job 1 and Job 3</p></div>
+        <br>
+        <br>
+        <input type = "button" id = "robot_button_sample3" value = "Robot 3" />
+        <div id="job_dependency"><p>Used by: Job 2</p></div>
+ 
+    <br>
+    <br>  
+
+
+    
+    <!-- The Job 1 -->
+        <input type = "button" onclick="doDisable_job_sample1()" id = "job_button_sample1_start" value = "Start Job 1" />
+        <span class="timer" id="timer_job_sample1" > 5s </span>
+                <progress
+                max="5"
+                value="5"
+                class="progress progress--set"
+                id ="progressBar_job_sample1"
+                ></progress> 
+
+        <script>
+            function doDisable_job_sample1(){
+                //disabling its start button
+                document.getElementById("job_button_sample1_start").disabled = true;
+
+                document.getElementById("job_button_sample3_start").disabled = true;
+                document.getElementById("job_button_sample3_end").disabled = true;
+                document.getElementById("robot_button_sample2").disabled = true;
+
+                // timer
+                timerElement_job_sample1=document.getElementById("timer_job_sample1");
+                const progressBar=document.getElementById("progressBar_job_sample1");
+                timerCounter_job_sample1=progressBar_job_sample1.max;
+                interval_job_sample1=setInterval(function(){
+                if (timerCounter_job_sample1<=1){
+                    clearInterval(interval_job_sample1);
+                    job_sample1_status=1;
+                    document.getElementById("job_button_sample1_start").disabled = true;
+                    document.getElementById("job_button_sample1_end").disabled = true;
+                    if (job_sample3_status==0 && flag_wholeExperiment_sample==0){
+                        document.getElementById("job_button_sample3_start").disabled = false;
+                        document.getElementById("job_button_sample3_end").disabled = false;
+                        }
+                    
+                    document.getElementById("robot_button_sample2").disabled = false;
+
+                    // writting the job end time into the DB by calling the flask func for it
+                    
+
+                    // recording the status of job being finished
+                    all_timer_0_sample=all_timer_0_sample+1;
+                    console.log(all_timer_0_sample);
+                    check_timer_status_sample();
+
+                    }
+                timerCounter_job_sample1=timerCounter_job_sample1-1;
+                timerElement_job_sample1.innerText=timerCounter_job_sample1+"s";
+                progressBar_job_sample1.value=timerCounter_job_sample1;
+
+                },1000);
+                
+
+            }
+        </script>
+
+        <input type = "button" onclick="doEnable_job_sample1()" id = "job_button_sample1_end" value = "End Job 1" />
+
+        <script type="application/javascript">
+            function doEnable_job_sample1(){
+                //enabling its start button
+                document.getElementById("job_button_sample1_start").disabled = false;
+
+                //enabling the robot after use
+                document.getElementById("robot_button_sample2").disabled = false;
+                // enabling the other jobs using robot2 if they have not been completed
+                if (job_sample3_status==0 && flag_wholeExperiment_sample==0){
+                    document.getElementById("job_button_sample3_start").disabled = false;
+                    document.getElementById("job_button_sample3_end").disabled = false;
+                }
+                
+
+                //timer
+                clearInterval(interval_job_sample1);
+                interval_job_sample1 = undefined;
+                progressBar_job_sample1.max=progressBar_job_sample1.value;
+
+            }
+        </script>
+
+    <br>    
+        
+    <!-- The Job 2 -->  
+        
+        <input type = "button" onclick="doDisable_job_sample2()" id = "job_button_sample2_start" value = "Start Job 2" />
+
+        
+        <span class="timer" id="timer_job_sample2" > 2s </span>
+                <progress
+                max="2"
+                value="2"
+                class="progress progress--set"
+                id ="progressBar_job_sample2"
+                ></progress> 
+
+         
+        <script>
+            function doDisable_job_sample2(){
+                //disabling its start button
+                document.getElementById("job_button_sample2_start").disabled = true;
+                
+                document.getElementById("robot_button_sample1").disabled = true;
+                document.getElementById("robot_button_sample3").disabled = true;
+
+                
+                // timer
+                timerElement_job_sample2=document.getElementById("timer_job_sample2");
+                const progressBar=document.getElementById("progressBar_job_sample2");
+                timerCounter_job_sample2=progressBar_job_sample2.max;
+                interval_job_sample2=setInterval(function(){
+                if (timerCounter_job_sample2<=1){
+                    clearInterval(interval_job_sample2);
+                    job_sample2_status=1;
+                    document.getElementById("robot_button_sample1").disabled = false;
+                    document.getElementById("robot_button_sample3").disabled = false;
+                    document.getElementById("job_button_sample2_start").disabled = true;
+                    document.getElementById("job_button_sample2_end").disabled = true;
+
+                    // recording the status of job being finished
+                    all_timer_0_sample=all_timer_0_sample+1;
+                    console.log(all_timer_0_sample);
+                    check_timer_status_sample();
+                    
+                    }
+                timerCounter_job_sample2=timerCounter_job_sample2-1;
+                timerElement_job_sample2.innerText=timerCounter_job_sample2+"s";
+                progressBar_job_sample2.value=timerCounter_job_sample2;
+
+                },1000);
+                
+            }
+        </script>
+        <input type = "button" onclick="doEnable_job_sample2()" id = "job_button_sample2_end" value = "End Job 2" />
+        <script>
+            function doEnable_job_sample2(){
+                //enabling its start button
+                document.getElementById("job_button_sample2_start").disabled = false;
+                
+                document.getElementById("robot_button_sample1").disabled = false;
+                document.getElementById("robot_button_sample3").disabled = false;
+
+                //timer
+                clearInterval(interval_job_sample2);
+                interval_job_sample2 = undefined;
+                progressBar_job_sample2.max=progressBar_job_sample2.value;
+
+            }
+        </script>
+
+         
+        
+ 
+
+<br> 
+
+<!-- The Job 3 -->
+        <input type = "button" onclick="doDisable_job_sample3()" id = "job_button_sample3_start" value = "Start Job 3" />
+        <span class="timer" id="timer_job_sample3" > 4s </span>
+                <progress
+                max="4"
+                value="4"
+                class="progress progress--set"
+                id ="progressBar_job_sample3"
+                ></progress> 
+
+        <script>
+            function doDisable_job_sample3(){
+                //disabling its start button
+                document.getElementById("job_button_sample3_start").disabled = true;
+
+                document.getElementById("job_button_sample1_start").disabled = true;
+                document.getElementById("job_button_sample1_end").disabled = true;
+                document.getElementById("robot_button_sample2").disabled = true;
+
+                // timer
+                timerElement_job_sample3=document.getElementById("timer_job_sample3");
+                const progressBar=document.getElementById("progressBar_job_sample3");
+                timerCounter_job_sample3=progressBar_job_sample3.max;
+                interval_job_sample3=setInterval(function(){
+                if (timerCounter_job_sample3<=1){
+                    clearInterval(interval_job_sample3);
+                    job_sample3_status=1;
+                    document.getElementById("job_button_sample3_start").disabled = true;
+                    document.getElementById("job_button_sample3_end").disabled = true;
+                    if (job_sample1_status==0 && flag_wholeExperiment_sample==0){
+                        document.getElementById("job_button_sample1_start").disabled = false;
+                        document.getElementById("job_button_sample1_end").disabled = false;
+                        }
+                    
+                    document.getElementById("robot_button_sample2").disabled = false;
+
+                                       
+
+                    // recording the status of job being finished
+                    all_timer_0_sample=all_timer_0_sample+1;
+                    console.log(all_timer_0_sample);
+                    check_timer_status_sample();
+
+                    }
+                timerCounter_job_sample3=timerCounter_job_sample3-1;
+                timerElement_job_sample3.innerText=timerCounter_job_sample3+"s";
+                progressBar_job_sample3.value=timerCounter_job_sample3;
+
+                },1000);
+                
+
+            }
+        </script>
+
+        <input type = "button" onclick="doEnable_job_sample3()" id = "job_button_sample3_end" value = "End Job 3" />
+
+        <script type="application/javascript">
+            function doEnable_job_sample3(){
+                //enabling its start button
+                document.getElementById("job_button_sample3_start").disabled = false;
+                //enabling the robot after use
+                document.getElementById("robot_button_sample2").disabled = false;
+                // enabling the other jobs using robot2 if they have not been completed
+                if (job_sample1_status==0 && flag_wholeExperiment_sample==0){
+                    document.getElementById("job_button_sample1_start").disabled = false;
+                    document.getElementById("job_button_sample1_end").disabled = false;
+                }
+                
+
+                //timer
+                clearInterval(interval_job_sample3);
+                interval_job_sample3 = undefined;
+                progressBar_job_sample3.max=progressBar_job_sample3.value;
+
+            }
+        </script>
+
+    <br>
+    <br>    
+
+    <!-- The FINISH button -->
+        <input type = "button" id = "next_button_sample1" value = "FINISH" />
+        <script type="text/javascript">
+        document.getElementById("next_button_sample1").disabled = true;
+        function check_timer_status_sample(){
+            if (all_timer_0_sample==total_num_jobs_sample || flag_wholeExperiment_sample==1){
+                document.getElementById("next_button_sample1").disabled = false;
+               
+                }
+            else{
+                document.getElementById("next_button_sample1").disabled = true; 
+                //console.log("else");
+                //console.log(all_timer_0);  
+                } 
+        }
+        </script>
+
+    
+</div>
+
+
+
+
 </body>
 <br>
-<body><p>Enter your name and press the submit button, only then will the START button be activated. Click it to start the experiment.</p>
+<body><p>To go to the next page and start the experiment, you need to enter your name below. You can enter an alias if you want,
+your name would be used just as an identifier for your data. Your name will not be stored, processed or transferred for any other purpose. Click the "Submit & Start Experiment" button once you have entered your name and are ready to start the experiment. Once you click this button the Experiment Timer will start. Please DO NOT refresh or reload the main experiment page once you enter it.
+</p>
 </body>
 <body>
 <br>
@@ -21,9 +464,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     
     
-    <form id="formABC" action='/storeName' method="POST">
-        <input type="text" onkeyup="success()" id="text_box" placeholder="Enter your Name..."></input>
-        <input type="submit" id="btnSubmit" disabled value="Submit"></input> 
+    <form id="formABC" action='/' method="POST">
+        <input type="text" name="username" id="text_box" placeholder="Enter your Name..." onkeyup="success()"></input>
+        <input type="submit" id="btnSubmit" disabled value="Submit & Start Experiment"></input> 
         <!--<button type="submit" id="btnSubmit" disabled>Submit</button> -->
     </form>
 
@@ -40,6 +483,8 @@
     }
     </script>
 
+
+<!-- remove this because of e.preventDefault
     <script>
         $(document).ready(function () {
 
@@ -61,34 +506,13 @@
 
         });
     });
-    </script>
+    </script> -->
 
 </div>
 
 
 
-<!--
-    <form action="greet" method="post">
-        {% for message in get_flashed_messages() %}
-             <p>{{ message }}</p>
-         {% endfor %}
-        <br>
-        <input type="text" name="name_input">
-        <br>
-        <input type="submit" onclick="doEnable_START()" value="SUBMIT" id="greet">
-    </form>
-    
-    <script type="application/javascript">
-            function doEnable_START(){
-            	c=1;
-                
-                document.getElementById('start_1').disabled=false;
-                
-
-            }
-        </script>
-
--->
+<!-- storing name in localstorage is being removed because of e.preventDefault
 
 <script type="text/javascript">
     const form=document.getElementById("formABC");
@@ -104,12 +528,20 @@
     })
 </script>
 
+-->
+
 </body>
+
+<!--
+
 <body><p>To start the experiment click the START button. The button will only work once you have entered your name.</p></body>
 <br>
+
+
+
 <body>
 
-    <a href="{{ url_for('index') }}">
+    <a href="{{ url_for('experiment') }}">
         <input type = "button" id = "start_1" value = "START" />
         
     </a>
@@ -122,6 +554,7 @@
     
     </script>
 </body>
+-->
 
 
 
